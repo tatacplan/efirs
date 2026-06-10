@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Летние рецепты с эфирными маслами</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f5f4f0; color: #2C2C2A; padding: 32px 24px; }
+  .page { max-width: 900px; margin: 0 auto; }
+  .header { padding-bottom: 24px; border-bottom: 1px solid #D3D1C7; margin-bottom: 28px; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #D3D1C7; border-radius: 8px; padding: 4px 12px; font-size: 12px; color: #5F5E5A; margin-bottom: 10px; }
+  .header h1 { font-size: 26px; font-weight: 600; color: #2C2C2A; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .filter-btn { background: #fff; border: 1px solid #B4B2A9; border-radius: 999px; padding: 6px 16px; font-size: 13px; color: #5F5E5A; cursor: pointer; transition: all 0.15s; }
+  .filter-btn:hover { background: #f1efe8; }
+  .filter-btn.active { background: #1D9E75; border-color: #1D9E75; color: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 14px; }
+  .card { background: #fff; border: 1px solid #D3D1C7; border-radius: 14px; padding: 20px; }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+  .card-num { font-size: 11px; color: #888780; min-width: 24px; padding-top: 2px; }
+  .card-title { font-size: 15px; font-weight: 600; color: #2C2C2A; flex: 1; line-height: 1.35; }
+  .tag { font-size: 11px; padding: 3px 10px; border-radius: 999px; white-space: nowrap; font-weight: 500; }
+  .tag-green { background: #EAF3DE; color: #3B6D11; }
+  .tag-teal { background: #E1F5EE; color: #0F6E56; }
+  .tag-pink { background: #FBEAF0; color: #993556; }
+  .tag-amber { background: #FAEEDA; color: #854F0B; }
+  .tag-blue { background: #E6F1FB; color: #185FA5; }
+  .section { margin-top: 10px; }
+  .section-label { font-size: 10px; font-weight: 700; color: #888780; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .section-val { font-size: 13px; color: #5F5E5A; line-height: 1.55; }
+  .oils { display: flex; flex-wrap: wrap; gap: 5px; }
+  .oil-pill { background: #f5f4f0; border: 1px solid #D3D1C7; border-radius: 999px; padding: 3px 10px; font-size: 12px; color: #2C2C2A; }
+  .divider { height: 1px; background: #E8E7E2; margin: 12px 0; }
+
+  @media print {
+    body { background: #fff; padding: 16px; }
+    .filters { display: none; }
+    .card { break-inside: avoid; border: 1px solid #ccc; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="badge">🌿 эфирные масла</div>
+    <h1>Летние рецепты с эфирными маслами</h1>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filter('all', this)">Все</button>
+    <button class="filter-btn" onclick="filter('repellent', this)">🦟 От комаров</button>
+    <button class="filter-btn" onclick="filter('cooling', this)">❄️ Охлаждение</button>
+    <button class="filter-btn" onclick="filter('body', this)">✨ Уход за телом</button>
+    <button class="filter-btn" onclick="filter('hair', this)">🌿 Волосы</button>
+    <button class="filter-btn" onclick="filter('sun', this)">☀️ После солнца</button>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <div class="card" data-cat="repellent">
+      <div class="card-top">
+        <span class="card-num">01</span>
+        <span class="card-title">Спрей-репеллент «Летний щит»</span>
+        <span class="tag tag-green">От комаров</span>
+      </div>
+      <div class="section"><div class="section-label">Эфирные масла</div>
+        <div class="oils">
+          <span class="oil-pill">Лимонный эвкалипт — 20 кап</span>
+          <span class="oil-pill">Цитронелла — 15 кап</span>
+          <span class="oil-pill">Лаванда — 10 кап</span>
+          <span class="oil-pill">Мята — 5 кап</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section"><div class="section-label">База</div><div class="section-val">100 мл: 80 мл гидролата ромашки + 20 мл изопропилового спирта 70%</div></div>
+      <div class="section"><div class="section-label">Применение</div><div class="section-val">Встряхнуть, нанести на открытые участки кожи и одежду. Обновлять каждые 2–3 часа.</div></div>
+    </div>
+
+    <div class="card" data-cat="repellent">
+      <div class="card-top">
+        <span class="card-num">02</span>
+        <span class="card-title">Масло-репеллент для кожи</span>
+        <span class="tag tag-green">От комаров</span>
+      </div>
+      <div class="section"><div class="section-label">Эфирные масла</div>
+        <div class="oils">
+          <span class="oil-pill">Цитронелла — 12 кап</span>
+          <span class="oil-pill">Герань — 8 кап</span>
+          <span class="oil-pill">Базилик — 5 кап</span>
+          <span class="oil-pill">Гвоздика — 3 кап</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section"><div class="section-label">База</div><div class="section-val">30 мл кокосового масла + 10 мл масла жожоба</div></div>
+      <div class="section"><div class="section-label">Применение</div><div class="section-val">Втереть в кожу рук, ног, шеи. Идеально для вечерних прогулок и пикников.</div></div>
+    </div>
+
+    <div class="card" data-cat="repellent">
+      <div class="card-top">
+        <span class="card-num">03</span>
+        <span class="card-title">Диффузорная смесь «Нет комарам»</span>
+        <span class="tag tag-green">От комаров</span>
+      </div>
+      <div class="section"><div class="section-label">Эфирные масла</div>
+        <div class="oils">
+          <span class="oil-pill">Лемонграсс — 4 кап</span>
+          <span class="oil-pill">Мята перечная — 3 кап</span>
+          <span class="oil-pill">Лаванда — 3 кап</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section"><div class="section-label">Применение</div><div class="section-val">Залить в диффузор с водой.</div></div>
+    </div>
+
+    <div class="card" data-cat="cooling">
+      <div class="card-top">
+        <span class="card-num">04</span>
+        <span class="card-title">Охлаждающий гель для ног</span>
+        <span class="tag tag-teal">Охлаждение</span>
+      </div>
+      <div class="section"><div class="section-label">Эфирные масла</div>
+        <div class="oils">
+          <span class="oil-pill">Мята перечная — 15 кап</span>
+          <span class="oil-pill">Чайное дерево — 8 кап</span>
+          <span class="oil-pill">Кипарис — 7 кап</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section"><div class="section-label">База</div><div class="section-val">100 г геля алоэ-вера (прозрачного)</div></div>
+      <div class="section"><div class="section-label">Применение</div><div class="section-val">Смешать, хранить в холодильнике. Наносить на стопы и голени вечером или при усталости ног.</div></div>
+    </div>
+
+    <div class="card" data-cat="body">
+      <div class="card-top">
+        <span class="card-num">05</span>
+        <span class="card-title">Антицеллюлитное масло «Горячее лето»</span>
+        <span class="tag tag-pink">Уход за телом</span>
+      </div>
+      <div class="section"><div class="section-label">Эфирные масла</div>
+        <div class="oils">
+          <span class="oil-pill">Грейпфрут — 15 кап</span>
+          <span class="oil-pill">Розмарин — 10 кап</span>
+          <span class="oil-pill">Можжевельник — 8 кап</span>
+          <span class="oil-pill">Чёрный перец — 5 кап</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section"><div class="section-label">База</div><div class="section-val">30 мл масла сладкого миндаля + 20 мл масла виноградных косточек</div></div>
+      <div class="section"><div class="section-label">Применение</div><div class="section-val">Втирать круговыми движениями снизу вверх в проблемные зоны 3–4 раза в неделю. Наносить вечером либо за 6 часов до выхода на солнце.</div></div>
+    </div>
+
+    <div class="card" data-cat="body">
+      <div class="card-top">
+        <span class="card-num">06</span>
+        <span class="card-title">Скраб для тела с морской солью</span>
+        <span class="tag tag-pink">Уход за телом</span>
+      </div>
+      <div class="section"><div class="section-label">Эфирные масла</div>
+        <div class="oils">
+          <span class="oil-pill">Лаванда — 10 кап</span>
+          <span class="oil-pill">Бергамот — 8 кап</span>
+          <span class="oil-pill">Иланг-иланг — 5 кап</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section"><div class="section-label">База</div><div class="section-val">200 г морской соли среднего помола + 3 ст. л. кокосового масла + 1 ст. л. мёда</div></div>
+      <div class="section"><div class="section-label">Применение</div><div class="section-val">Нанести на влажную кожу в душе, массировать 2–3 минуты, смыть. 1–2 раза в неделю. Наносить вечером либо за 6 часов до выхода на солнце.</div></div>
+    </div>
+
+    <div class="card" data-cat="sun">
+      <div class="card-top">
+        <span class="card-num">07</span>
+        <span class="card-title">Успокаивающий спрей после солнца</span>
+        <span class="tag tag-amber">После солнца</span>
+      </div>
+      <div class="section"><div class="section-label">Эфирные масла</div>
+        <div class="oils">
+          <span class="oil-pill">Лаванда — 15 кап</span>
+          <span class="oil-pill">Мята перечная — 8 кап</span>
+          <span class="oil-pill">Ромашка римская — 5 кап</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section"><div class="section-label">База</div><div class="section-val">100 мл гидролата лаванды + 20 мл алоэ-вера жидкого</div></div>
+      <div class="section"><div class="section-label">Применение</div><div class="section-val">Хранить в холодильнике. Распылять на покрасневшую кожу сразу после пляжа, не втирать.</div></div>
+    </div>
+
+    <div class="card" data-cat="hair">
+      <div class="card-top">
+        <span class="card-num">08</span>
+        <span class="card-title">Сыворотка для волос «Защита от солнца»</span>
+        <span class="tag tag-blue">Волосы</span>
+      </div>
+      <div class="section"><div class="section-label">Эфирные масла</div>
+        <div class="oils">
+          <span class="oil-pill">Розмарин — 8 кап</span>
+          <span class="oil-pill">Иланг-иланг — 5 кап</span>
+          <span class="oil-pill">Сандал — 4 кап</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section"><div class="section-label">База</div><div class="section-val">30 мл аргановое масло + 10 мл масло жожоба</div></div>
+      <div class="section"><div class="section-label">Применение</div><div class="section-val">5–7 капель смеси на ладонь, распределить по длине сухих или влажных волос перед выходом.</div></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function filter(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
