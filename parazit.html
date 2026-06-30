@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Антипаразитарная программа — доступ навсегда</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F4EA;
+    --bg-alt: #ECE6D4;
+    --ink: #233022;
+    --ink-soft: #4B5A47;
+    --sage: #6E8362;
+    --sage-deep: #4F6447;
+    --clay: #C97B5C;
+    --rose: #CC9690;
+    --line: rgba(35,48,34,0.14);
+    --card: #FFFFFF;
+    --max: 1120px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 24px;}
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.12;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  .eyebrow{
+    font-family:'Manrope', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px;
+    background:var(--sage-deep);
+    display:inline-block;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:16px 32px;
+    background:var(--sage-deep);
+    color:#fff;
+    font-family:'Manrope', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    border-radius:100px;
+    border:none;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+    box-shadow:0 8px 20px -8px rgba(79,100,71,0.55);
+  }
+  .btn:hover{ background:#3E5237; transform:translateY(-2px); }
+  .btn.ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1.5px solid var(--ink);
+    box-shadow:none;
+  }
+  .btn.ghost:hover{ background:var(--ink); color:#fff; }
+  section{ padding:96px 0; }
+  @media(max-width:720px){ section{ padding:64px 0; } }
+
+  /* ===== Top bar / countdown ===== */
+  .topbar{
+    background:var(--sage-deep);
+    color:#fff;
+    text-align:center;
+    padding:12px 16px;
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:.02em;
+  }
+  .topbar span{ color:#F2D9C9; }
+
+  /* ===== Hero ===== */
+  .hero{
+    padding:84px 0 64px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-180px; right:-180px;
+    width:520px; height:520px;
+    border-radius:50%;
+    background:radial-gradient(circle at center, rgba(110,131,98,0.20), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media(max-width:880px){ .hero-grid{ grid-template-columns:1fr; } }
+  .hero h1{
+    font-size:clamp(34px, 5vw, 54px);
+    margin:18px 0 22px;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--sage-deep);
+  }
+  .hero p.lead{
+    font-size:19px;
+    color:var(--ink-soft);
+    max-width:540px;
+    margin-bottom:32px;
+  }
+  .hero-cta-row{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-bottom:28px; }
+  .hero-note{ font-size:14px; color:var(--ink-soft); }
+  .hero-visual{
+    background:var(--card);
+    border-radius:28px;
+    padding:30px;
+    box-shadow:0 24px 60px -28px rgba(35,48,34,0.30);
+    border:1px solid var(--line);
+  }
+  .hero-visual h3{ font-size:20px; margin-bottom:14px; }
+  .symptom-list{ list-style:none; display:flex; flex-direction:column; gap:11px; }
+  .symptom-list li{
+    display:flex; gap:10px; align-items:flex-start;
+    font-size:15.5px; color:var(--ink-soft);
+  }
+  .symptom-list li::before{
+    content:"";
+    flex:none;
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--clay);
+    margin-top:7px;
+  }
+
+  /* ===== Stats strip ===== */
+  .stats{
+    background:var(--bg-alt);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .stats .wrap{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:32px;
+    padding:48px 24px;
+  }
+  @media(max-width:720px){ .stats .wrap{ grid-template-columns:1fr; gap:28px; } }
+  .stat-num{
+    font-family:'Fraunces', serif;
+    font-size:38px;
+    color:var(--sage-deep);
+    font-weight:600;
+  }
+  .stat-label{ font-size:14.5px; color:var(--ink-soft); margin-top:6px; }
+
+  /* ===== Reframe block ===== */
+  .reframe{ max-width:760px; margin:0 auto; text-align:center; }
+  .reframe .eyebrow{ justify-content:center; }
+  .reframe .eyebrow::before{ display:none; }
+  .reframe h2{ font-size:clamp(28px,4vw,38px); margin:18px 0 20px; }
+  .reframe p{ font-size:18px; color:var(--ink-soft); }
+
+  /* ===== Stages (signature timeline) ===== */
+  .stages-head{ text-align:center; max-width:680px; margin:0 auto 56px; }
+  .stages-head h2{ font-size:clamp(28px,4vw,38px); margin:16px 0; }
+  .stages-head p{ color:var(--ink-soft); font-size:17px; }
+  .stage-track{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    position:relative;
+  }
+  @media(max-width:920px){ .stage-track{ grid-template-columns:1fr; gap:28px; } }
+  .stage-track::before{
+    content:"";
+    position:absolute;
+    top:34px; left:6%; right:6%;
+    height:1px;
+    background:var(--line);
+  }
+  @media(max-width:920px){ .stage-track::before{ display:none; } }
+  .stage{ padding:0 18px; position:relative; }
+  .stage-mark{
+    width:68px; height:68px;
+    border-radius:50%;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-size:15px;
+    color:var(--sage-deep);
+    font-weight:600;
+    margin-bottom:18px;
+    position:relative;
+    z-index:1;
+  }
+  .stage h3{ font-size:19px; margin-bottom:8px; }
+  .stage p{ font-size:14.5px; color:var(--ink-soft); }
+
+  /* ===== Team ===== */
+  .team-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+  }
+  @media(max-width:880px){ .team-grid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:520px){ .team-grid{ grid-template-columns:1fr; } }
+  .team-card{
+    background:var(--card);
+    border-radius:20px;
+    padding:26px 22px;
+    border:1px solid var(--line);
+  }
+  .team-avatar{
+    width:72px; height:72px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:16px;
+    border:2px solid var(--bg);
+    box-shadow:0 0 0 1px var(--line);
+  }
+  .team-card h3{ font-size:17px; margin-bottom:4px; }
+  .team-role{ font-size:13.5px; color:var(--clay); font-weight:700; margin-bottom:10px; }
+  .team-card p{ font-size:14px; color:var(--ink-soft); }
+
+  /* ===== Results / before-after ===== */
+  .results-bg{ background:var(--bg-alt); }
+  .quote-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  @media(max-width:880px){ .quote-grid{ grid-template-columns:1fr; } }
+  .quote-card{
+    background:var(--card);
+    border-radius:20px;
+    padding:28px 24px;
+    border:1px solid var(--line);
+  }
+  .quote-mark{ font-family:'Fraunces', serif; font-size:42px; color:var(--rose); line-height:1; margin-bottom:6px; }
+  .quote-card p{ font-size:15.5px; color:var(--ink); margin-bottom:14px; }
+  .quote-name{ font-size:13.5px; color:var(--ink-soft); font-weight:700; }
+
+  /* ===== Pricing ===== */
+  .pricing-head{ text-align:center; max-width:680px; margin:0 auto 52px; }
+  .pricing-head h2{ font-size:clamp(28px,4vw,38px); margin:16px 0; }
+  .pricing-head p{ color:var(--ink-soft); font-size:17px; }
+  .price-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    align-items:stretch;
+  }
+  @media(max-width:920px){ .price-grid{ grid-template-columns:1fr; } }
+  .price-card{
+    background:var(--card);
+    border-radius:24px;
+    border:1.5px solid var(--line);
+    padding:34px 28px;
+    display:flex;
+    flex-direction:column;
+  }
+  .price-card.featured{
+    border-color:var(--sage-deep);
+    box-shadow:0 24px 50px -24px rgba(79,100,71,0.45);
+    transform:translateY(-10px);
+  }
+  @media(max-width:920px){ .price-card.featured{ transform:none; } }
+  .price-tag{
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+    background:rgba(110,131,98,0.14);
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:100px;
+    margin-bottom:18px;
+    width:fit-content;
+  }
+  .price-card.featured .price-tag{ background:var(--sage-deep); color:#fff; }
+  .price-card h3{ font-size:24px; margin-bottom:6px; }
+  .price-pv{ font-size:14px; color:var(--ink-soft); margin-bottom:18px; }
+  .price-amount{
+    font-family:'Fraunces', serif;
+    font-size:38px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:4px;
+  }
+  .price-amount span{ font-size:16px; font-weight:500; color:var(--ink-soft); }
+  .price-installment{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-bottom:22px;
+  }
+  .price-list{ list-style:none; display:flex; flex-direction:column; gap:11px; margin-bottom:26px; flex:1; }
+  .price-list li{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .price-list li::before{
+    content:"✓";
+    flex:none;
+    color:var(--sage-deep);
+    font-weight:700;
+  }
+  .price-list li.gift{ color:var(--clay); font-weight:600; }
+  .price-list li.gift::before{ content:"🎁"; }
+  .price-list li.prod::before{ content:none; }
+  .price-list li.prod{ align-items:flex-start; }
+  .prod-icon{
+    flex:none;
+    width:26px; height:26px;
+    border-radius:8px;
+    background:var(--bg-alt);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px;
+    margin-top:1px;
+  }
+  .price-card .btn{ width:100%; }
+
+  .included-note{
+    text-align:center;
+    max-width:680px;
+    margin:44px auto 0;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    padding:20px 24px;
+    background:var(--bg-alt);
+    border-radius:16px;
+  }
+  .included-note b{ color:var(--ink); }
+
+  /* ===== Base perks (shared across all tiers) ===== */
+  .perks{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:18px;
+    margin-top:56px;
+  }
+  @media(max-width:920px){ .perks{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:520px){ .perks{ grid-template-columns:1fr; } }
+  .perk{
+    text-align:center;
+    padding:22px 14px;
+  }
+  .perk-icon{
+    width:44px; height:44px;
+    border-radius:50%;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 12px;
+    font-size:18px;
+  }
+  .perk p{ font-size:13.5px; color:var(--ink-soft); }
+
+  /* ===== FAQ ===== */
+  .faq-head{ text-align:center; max-width:640px; margin:0 auto 44px; }
+  .faq-head h2{ font-size:clamp(28px,4vw,36px); margin:16px 0; }
+  .faq-item{
+    border-bottom:1px solid var(--line);
+    padding:22px 0;
+  }
+  .faq-q{
+    display:flex; justify-content:space-between; align-items:center;
+    cursor:pointer;
+    font-family:'Fraunces', serif;
+    font-size:18px;
+    font-weight:500;
+  }
+  .faq-q::after{
+    content:"+";
+    font-size:24px;
+    color:var(--sage-deep);
+    transition:transform .25s ease;
+    flex:none;
+    margin-left:16px;
+  }
+  .faq-item.open .faq-q::after{ transform:rotate(45deg); }
+  .faq-a{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease;
+    font-size:15px;
+    color:var(--ink-soft);
+  }
+  .faq-item.open .faq-a{ max-height:300px; padding-top:14px; }
+
+  /* ===== Final CTA ===== */
+  .final-cta{
+    background:var(--sage-deep);
+    color:#fff;
+    text-align:center;
+    border-radius:32px;
+    padding:64px 32px;
+    margin:0 24px;
+  }
+  .final-cta h2{ color:#fff; font-size:clamp(28px,4vw,38px); margin-bottom:16px; }
+  .final-cta p{ color:rgba(255,255,255,0.82); font-size:17px; margin-bottom:30px; max-width:560px; margin-left:auto; margin-right:auto; }
+  .final-cta .btn{ background:#fff; color:var(--sage-deep); box-shadow:0 10px 26px -10px rgba(0,0,0,0.35); }
+  .final-cta .btn:hover{ background:var(--bg); }
+
+  footer{
+    text-align:center;
+    padding:40px 24px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.show{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="topbar">🌿 Вход в программу с полным сопровождением команды специалистов открыт до 8:00 по Москве. <span id="timer">осталось времени</span></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Антипаразитарная программа</div>
+      <h1>Доступ к программе — <em>навсегда</em>.<br>Поддержка личного консультанта — рядом столько, сколько нужно вам.</h1>
+      <p class="lead">Не разовая чистка за три дня и не жёсткая диета. Системное сопровождение врача восстановительной медицины, нутрициолога, психолога и ЗОЖ-эксперта — в вашем собственном темпе.</p>
+      <div class="hero-cta-row">
+        <a href="#pricing" class="btn">Смотреть тарифы</a>
+        <a href="#stages" class="btn ghost">Как устроена программа</a>
+      </div>
+      <div class="hero-note">3 варианта входа — от 12 900 ₽ · доступ навсегда</div>
+    </div>
+    <div class="hero-visual">
+      <h3>Узнаёте себя?</h3>
+      <ul class="symptom-list">
+        <li>Тяга к сладкому, с которой невозможно справиться</li>
+        <li>Усталость по утрам — даже после полноценного сна</li>
+        <li>Туман в голове, сложно сосредоточиться</li>
+        <li>Сухость кожи, высыпания, которые «ничем не лечатся»</li>
+        <li>Вздутие, нерегулярный стул</li>
+        <li>Тревожность и раздражительность без видимой причины</li>
+        <li>У ребёнка: плохой сон, частые простуды, аллергии, избирательность в еде</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="stat-num">240 000</div>
+      <div class="stat-label">яиц в сутки откладывает одна взрослая аскарида</div>
+    </div>
+    <div class="reveal">
+      <div class="stat-num">до 80%</div>
+      <div class="stat-label">пресноводной рыбы в реках Сибири заражены описторхозом</div>
+    </div>
+    <div class="reveal">
+      <div class="stat-num">до 25 лет</div>
+      <div class="stat-label">без лечения описторхоз может жить в организме незаметно</div>
+    </div>
+  </div>
+</div>
+
+<!-- REFRAME -->
+<section>
+  <div class="wrap reframe reveal">
+    <div class="eyebrow">Важно понимать</div>
+    <h2>Это не «характер» и не «возраст»</h2>
+    <p>Усталость, тяга к сладкому, проблемы с кожей и животом — мы привыкли считать это просто особенностями организма. На деле тело так сигналит о проблеме, которую стоит заметить. Чем дольше откладываешь — тем больше сил это забирает. «Завтра» и «вот закончу дела» легко превращаются в «никогда».</p>
+  </div>
+</section>
+
+<!-- STAGES -->
+<section id="stages" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="stages-head reveal">
+      <div class="eyebrow" style="justify-content:center;"><span style="margin:0;"></span></div>
+      <h2>Программа — это путь к здоровой, счастливой жизни</h2>
+      <p>Каждый этап имеет смысл и опору на медицинские знания. Темп — индивидуальный: у кого-то подготовка занимает три недели, у кого-то три месяца — и это нормально.</p>
+    </div>
+    <div class="stage-track">
+      <div class="stage reveal">
+        <div class="stage-mark">01</div>
+        <h3>Подготовка</h3>
+        <p>Кишечник, печень, лимфа, желчеотток. Фундамент, без которого чистка может дать обратный эффект.</p>
+      </div>
+      <div class="stage reveal">
+        <div class="stage-mark">02</div>
+        <h3>Антипаразитарный</h3>
+        <p>Мягкое воздействие на паразитов и их личинки травами и эфирными маслами.</p>
+      </div>
+      <div class="stage reveal">
+        <div class="stage-mark">03</div>
+        <h3>Восстановление</h3>
+        <p>Микрофлора, иммунитет, закрытие дефицитов после очищения организма.</p>
+      </div>
+      <div class="stage reveal">
+        <div class="stage-mark">И это<br>не всё</div>
+        <h3>Плюс внутри программы</h3>
+        <p>Работа со стрессом, рецепты вкусных и полезных блюд, физические упражнения, лимфодренажный и точечный массаж — всё, что помогает телу восстанавливаться по-настоящему.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section>
+  <div class="wrap">
+    <div class="stages-head reveal">
+      <h2>Команда нескольких специалистов</h2>
+      <p>Тело, питание, психика и физическая активность — мы работаем со всем одновременно, а не по отдельности.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <img class="team-avatar" src="assets/inna.jpg" alt="Инна Медведева">
+        <h3>Инна Медведева</h3>
+        <div class="team-role">Врач восстановительной медицины</div>
+        <p>Ведёт медицинскую часть программы, годами практикует именно с паразитарной нагрузкой.</p>
+      </div>
+      <div class="team-card reveal">
+        <img class="team-avatar" src="assets/elena.jpg" alt="Елена Сулимова">
+        <h3>Елена Сулимова</h3>
+        <div class="team-role">Психолог-консультант</div>
+        <p>Сопровождает трек сна и стресса — состояние нервной системы напрямую влияет на результат.</p>
+      </div>
+      <div class="team-card reveal">
+        <img class="team-avatar" src="assets/nadezhda.jpg" alt="Надежда Капитонова">
+        <h3>Надежда Капитонова</h3>
+        <div class="team-role">Нутрициолог</div>
+        <p>Помогает выстроить питание так, чтобы организму было некомфортно для паразитов.</p>
+      </div>
+      <div class="team-card reveal">
+        <img class="team-avatar" src="assets/natalya.jpg" alt="Наталья Кожевникова">
+        <h3>Наталья Кожевникова</h3>
+        <div class="team-role">Специалист ЗОЖ</div>
+        <p>Курирует привычки, режим и практическую сторону прохождения программы.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results-bg">
+  <div class="wrap">
+    <div class="stages-head reveal">
+      <h2>Что говорят те, кто уже проходит программу</h2>
+    </div>
+    <div class="quote-grid">
+      <div class="quote-card reveal">
+        <div class="quote-mark">"</div>
+        <p>Я перестала бояться просыпаться утром. Раньше было страшно, что сил нет, а уже новый день впереди.</p>
+        <div class="quote-name">Участница программы</div>
+      </div>
+      <div class="quote-card reveal">
+        <div class="quote-mark">"</div>
+        <p>Мне интересна эта программа с точки зрения опыта — я сама нутрициолог и провожу антипаразитарные программы. Здесь профессиональное ведение врачом восстановительной медицины с базой по паразитологии.</p>
+        <div class="quote-name">Участница, нутрициолог</div>
+      </div>
+      <div class="quote-card reveal">
+        <div class="quote-mark">"</div>
+        <p>Антипаразитарку проходили не раз — однозначно после неё уровень проявления аллергии у детей снижается или уходит в ремиссию.</p>
+        <div class="quote-name">Гульнара, мама двоих детей</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="pricing-head reveal">
+      <div class="eyebrow" style="justify-content:center;"></div>
+      <h2>Выберите вариант входа</h2>
+      <p>В стоимость уже включена необходимая база продукции для старта подготовительного этапа — это не абстрактный доступ к информации.</p>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card reveal">
+        <div class="price-tag">Старт</div>
+        <h3>Старт</h3>
+        <div class="price-pv">110 баллов (PV)</div>
+        <div class="price-amount">12 900 ₽</div>
+        <div class="price-installment">Оплата частями — от 1 900 ₽/мес</div>
+        <ul class="price-list">
+          <li class="prod"><span class="prod-icon">🍋</span><span><b>Лимон</b> — масло для лёгкого детокса и поддержки печени</span></li>
+          <li class="prod"><span class="prod-icon">🌿</span><span><b>РевитаЗен</b> — комплекс для очищения и работы с воспалением</span></li>
+          <li class="prod"><span class="prod-icon">🌾</span><span><b>ДайджестЗен</b> — поддержка пищеварения и комфорта в животе</span></li>
+          <li class="prod"><span class="prod-icon">🌱</span><span><b>Файбер</b> — клетчатка для мягкой работы кишечника</span></li>
+        </ul>
+        <a href="https://payform.ru/t3bU48o/" class="btn ghost">Выбрать Старт</a>
+      </div>
+
+      <div class="price-card featured reveal">
+        <div class="price-tag">Самый популярный</div>
+        <h3>Баланс</h3>
+        <div class="price-pv">166 баллов (PV)</div>
+        <div class="price-amount">18 900 ₽</div>
+        <div class="price-installment">Оплата частями — от 1 900 ₽/мес</div>
+        <ul class="price-list">
+          <li>Всё из тарифа «Старт»</li>
+          <li class="prod"><span class="prod-icon">🍃</span><span><b>Перечная мята</b> — снимает тяжесть и вздутие после еды</span></li>
+          <li class="prod"><span class="prod-icon">🌸</span><span><b>Баланс</b> — успокаивает нервную систему, помогает справляться со стрессом</span></li>
+        </ul>
+        <a href="https://payform.ru/7ubU4df/" class="btn">Выбрать Баланс</a>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="price-tag">Максимум</div>
+        <h3>Максимум</h3>
+        <div class="price-pv">276 баллов (PV)</div>
+        <div class="price-amount">32 900 ₽</div>
+        <div class="price-installment">Оплата частями — от 1 900 ₽/мес</div>
+        <ul class="price-list">
+          <li>Всё из тарифа «Баланс»</li>
+          <li class="prod"><span class="prod-icon">✨</span><span><b>Природная синергия:</b> VMG + EO Mega+ — витаминно-минеральная база и омега-3 для восстановления организма после чистки</span></li>
+        </ul>
+        <a href="https://payform.ru/fnbU4ho/" class="btn ghost">Выбрать Максимум</a>
+      </div>
+    </div>
+
+    <div class="included-note reveal">
+      <b>Во всех тарифах без исключения:</b> доступ к программе навсегда · личный куратор навсегда · личный кабинет в doTERRA с покупкой продукции со скидкой от 25% до 55% · доступ к закрытым чатам сообщества с ежемесячными розыгрышами · доступ к другим программам внутри сообщества — приходите с одним запросом, а находите ещё много полезного.
+    </div>
+
+    <div class="perks">
+      <div class="perk reveal"><div class="perk-icon">♾️</div><p>Доступ навсегда</p></div>
+      <div class="perk reveal"><div class="perk-icon">🤝</div><p>Личный куратор навсегда</p></div>
+      <div class="perk reveal"><div class="perk-icon">💸</div><p>Скидка 25–55% на продукцию</p></div>
+      <div class="perk reveal"><div class="perk-icon">💬</div><p>Закрытое сообщество и розыгрыши</p></div>
+      <div class="perk reveal"><div class="perk-icon">🌐</div><p>Другие программы внутри сообщества</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--bg-alt);">
+  <div class="wrap" style="max-width:760px;">
+    <div class="faq-head reveal">
+      <h2>Частые вопросы</h2>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">С какого возраста можно проходить программу?</div>
+      <div class="faq-a">Программа подходит с 2 лет — для детей предусмотрена адаптация по дозировкам и подходу.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">Есть ли противопоказания?</div>
+      <div class="faq-a">Программа не подходит при крупных камнях в желчном пузыре или почках и при онкологических заболеваниях в активной стадии. При сомнениях куратор поможет разобраться индивидуально.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">Что если я не успею войти сегодня?</div>
+      <div class="faq-a">Сегодня закрывается вход именно в расширенное сопровождение всей команды до конца лета. Сама программа открывается заново на новых потоках — но условия входа могут отличаться.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">Как часто нужно проходить программу?</div>
+      <div class="faq-a">Рекомендуется проходить антипаразитарную программу два раза в год. Доступ к материалам остаётся у вас навсегда, и вы можете возвращаться к ним в своём темпе.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">Подходит ли это специалистам для работы с клиентами?</div>
+      <div class="faq-a">Да — среди участников есть нутрициологи, врачи и косметологи, которые проходят программу, чтобы использовать подход в собственной практике.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section>
+  <div class="wrap">
+    <div class="final-cta reveal">
+      <h2>Сегодня последний день входа в программу с полным сопровождением команды специалистов</h2>
+      <p>Доступ к программе остаётся у вас навсегда. Вы можете проходить программу в своём темпе — с поддержкой личного консультанта.</p>
+      <a href="#pricing" class="btn">Выбрать тариф</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Антипаразитарная программа · сопровождение команды специалистов · доступ навсегда
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click', ()=>{
+      item.classList.toggle('open');
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12});
+  reveals.forEach(el=>io.observe(el));
+
+  // Countdown to end of day
+  function updateTimer(){
+    const now = new Date();
+    const end = new Date();
+    end.setDate(end.getDate() + 1);
+    end.setHours(8,0,0,0);
+    let diff = end - now;
+    if(diff < 0) diff = 0;
+    const h = String(Math.floor(diff/3600000)).padStart(2,'0');
+    const m = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+    const s = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+    document.getElementById('timer').textContent = `осталось ${h}:${m}:${s}`;
+  }
+  updateTimer();
+  setInterval(updateTimer, 1000);
+</script>
+
+</body>
+</html>
